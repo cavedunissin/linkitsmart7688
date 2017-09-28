@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <title>Video</title>
+    <script src="/socket.io/socket.io.js">  </script>
+  </head>
+  <body>
+    <div style="position: relative; z-index: 1;">
+     //請在此修改 LinkIt Smart IP
+     <img src="http://[linkit7688IP]:8080/?action=stream" style="position: absolute; z-index: 2;" />
+     <canvas id="myCanvas" width="640" height="480" style="position: relative; top: -10px; z-index: 3;"></canvas>
+    </div>
+    <script>
+       var Xdata=0;
+       var socket=io.connect();
+       var canvas = document.getElementById('myCanvas');
+       var context = canvas.getContext('2d');
+       socket.on('message',function (data) {
+         console.log(data.id);
+         face_id=data.id;          //取得該臉孔的編號
+         face_gender=data.gender;  //取得該臉孔的性別
+         face_age=data.age;        //取得該臉孔的年齡
+       })
+       setInterval(function(){
+       context.clearRect(0, 0, canvas.width, canvas.height);
+//繪製文字
+       context.font = 'italic 20pt Calibri';  //設定字體大小與字型
+       context.fillStyle = 'blue';
+       context.fillText("faceID:"+face_id,100, 100);  
+       context.fillText("GENDER:"+face_gender,100, 300);
+       context.fillText("AGE:"+face_age,100, 400);
+       //顯示臉孔ID、性別與年齡
+
+//繪製外框
+       context.beginPath();
+       context.rect(408, 50, 200, 300);   //繪製矩形
+       context.lineWidth = 7;          //設定線寬
+       context.strokeStyle = 'red';       //設定框線顏色
+       context.stroke();*/
+       },1000/15);
+    </script>
+  </body>
+</html>
